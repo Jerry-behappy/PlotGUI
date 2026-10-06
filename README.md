@@ -1,7 +1,5 @@
 # PlotGUI 数据绘图GUI
 
-By Junyi Zhang, JNU MWP
-
 同一套科研数据绘图工具，提供 MATLAB 和 Python 两个版本。用于 TXT、CSV、DAT 曲线的校准、平滑、比较和当前图窗数据导出。
 
 ## 选择下载版本
@@ -62,9 +60,3 @@ python python/plot_gui.py --gui-smoke-test
 测试覆盖数据列解析、MATLAB movmean 奇偶窗口、校准与缩放顺序、曲线相减、可见区域 yline、截取 CSV、配置恢复及 GUI 关闭。GitHub Actions 在 Windows 上执行这些检查。
 
 主分支采用 PR 合并、自动测试、禁止强推及禁止删除的保护。单人维护不要求额外审批人数，提交者仍需通过 PR 与测试。
-
-## 版权
-
-Copyright © 2026 Junyi Zhang, JNU MWP. All rights reserved.
-
-代码公开提供下载。本仓库未授予开源许可证；如需再发布或商业使用，请联系作者获得许可。分支保护限制仓库修改，不限制公开内容的读取和下载。
