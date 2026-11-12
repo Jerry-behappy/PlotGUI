@@ -5,3 +5,6 @@ build/
 dist/
 *.spec
 settings.json
+
+# Generated portable browser bundle
+web/PlotGUI-Web.html
