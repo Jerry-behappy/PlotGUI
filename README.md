@@ -8,13 +8,17 @@
 
 | 版本 | 下载 | 运行条件 |
 | --- | --- | --- |
+| Web 离线单文件 | [PlotGUI-Web.html](https://github.com/Jerry-behappy/PlotGUI/releases/latest/download/PlotGUI-Web.html) | 下载后用 Edge / Chrome 直接打开，无需联网、服务器、Python 或 MATLAB |
+| Web 完整离线包 | [PlotGUI-Web.zip](https://github.com/Jerry-behappy/PlotGUI/releases/latest/download/PlotGUI-Web.zip) | 解压后双击 `PlotGUI-Web.html`；另含可编辑的 HTML/CSS/JS 源文件 |
 | MATLAB 版 | [PlotGUI-MATLAB.zip](https://github.com/Jerry-behappy/PlotGUI/releases/latest/download/PlotGUI-MATLAB.zip) | MATLAB R2023a 或兼容版本 |
-| Python Windows 版 | [PlotGUI-Python-Windows.zip](https://github.com/Jerry-behappy/PlotGUI/releases/latest/download/PlotGUI-Python-Windows.zip) | Windows 10/11 64 位；解压后运行 PlotGUI.exe，无需安装 Python |
+| Python Windows 版 | [PlotGUI-Python-Windows.zip](https://github.com/Jerry-behappy/PlotGUI/releases/download/v1.0.0/PlotGUI-Python-Windows.zip) | Windows 10/11 64 位；沿用 v1.0.0 程序，解压后运行 PlotGUI.exe，无需安装 Python |
 | Python 源码版 | [PlotGUI-Python-Source.zip](https://github.com/Jerry-behappy/PlotGUI/releases/latest/download/PlotGUI-Python-Source.zip) | Python 3.10+，Tkinter、NumPy、Matplotlib |
 
 [全部发行版本](https://github.com/Jerry-behappy/PlotGUI/releases)
 
 ## 运行
+
+Web：下载 `PlotGUI-Web.html` 后用浏览器打开，或解压 `PlotGUI-Web.zip` 后打开同名文件。选择文件夹或拖入 TXT/CSV/DAT 即可开始。数据仅在本机浏览器处理，刷新页面后需重新选择文件。
 
 MATLAB：打开 `matlab` 文件夹中的 `Plot_GUI_20260727.m`，运行 `Plot_GUI_20260727`，再选择数据目录。
 
@@ -62,3 +66,11 @@ python python/plot_gui.py --gui-smoke-test
 测试覆盖数据列解析、MATLAB movmean 奇偶窗口、校准与缩放顺序、曲线相减、可见区域 yline、截取 CSV、配置恢复及 GUI 关闭。GitHub Actions 在 Windows 上执行这些检查。
 
 主分支采用 PR 合并、自动测试、禁止强推及禁止删除的保护。单人维护不要求额外审批人数，提交者仍需通过 PR 与测试。
+
+## 发布包
+
+```powershell
+python package_release.py dist/release
+```
+
+生成 MATLAB、Python 源码和 Web 离线 ZIP，同时生成独立的 `PlotGUI-Web.html`。使用 `--windows <构建目录>` 加入新构建的 Windows 程序；未重新构建时保留原有 Windows 版的下载链接。
