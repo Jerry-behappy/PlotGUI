@@ -23,3 +23,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Open and close the GUI
         run: python python/plot_gui.py --gui-smoke-test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify browser numerical port against Python
+        run: node --test web/tests/core.test.cjs
