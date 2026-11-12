@@ -1,6 +1,8 @@
 # PlotGUI 数据绘图GUI
 
-同一套科研数据绘图工具，提供 MATLAB 和 Python 两个版本。用于 TXT、CSV、DAT 曲线的校准、平滑、比较和当前图窗数据导出。
+同一套科研数据绘图工具，提供 MATLAB、Python 和浏览器版本。用于 TXT、CSV、DAT 曲线的校准、平滑、比较和当前图窗数据导出。
+
+网页版：用 Edge 或 Chrome 打开 [`web/index.html`](web/index.html)，支持选择文件夹、拖入文件/文件夹、即时处理与复制图片/当前图窗数据。数据在本机浏览器处理，无需 Python 或 MATLAB。[网页版说明](web/README.md)。
 
 ## 选择下载版本
 

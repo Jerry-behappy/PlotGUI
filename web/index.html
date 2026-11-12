@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PlotGUI Web · 科研数据绘图</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="top"><div class="brand"><span class="logo">P<span>↗</span></span><div><h1>PlotGUI <span>Web</span></h1><p>科研数据绘图 · By Junyi Zhang, JNU MWP</p></div></div><div class="top-right"><span class="local-pill">● 本地处理</span><button id="copy-config">复制设置</button><button id="reset-settings">恢复默认</button></div></header>
+<main class="workspace">
+  <aside class="files panel" aria-label="文件与绘图">
+    <div class="panel-title"><h2>文件与绘图</h2><span id="file-count">0 个文件</span></div>
+    <div id="drop-zone" class="drop-zone"><span class="upload-symbol" aria-hidden="true">↥</span><strong>拖入文件或文件夹</strong><p>TXT / CSV / DAT</p><div class="import-buttons"><button id="choose-folder" class="primary">选择文件夹</button><button id="choose-files">选择文件</button></div><input id="file-input" type="file" accept=".txt,.csv,.dat" multiple hidden><input id="folder-input" type="file" webkitdirectory multiple hidden></div>
+    <div class="file-tools"><input id="file-search" type="search" placeholder="筛选文件名…" aria-label="筛选文件名"><div><button id="select-all">全选</button><button id="select-none">取消选择</button><button id="clear-files">移除全部</button></div></div>
+    <div id="file-list" class="file-list" aria-label="作图文件"><div class="empty-list">导入文件后，单击可切换选择<br>双击可预览原始数据</div></div>
+    <div class="columns"><label>X 列<input data-key="x_column" type="number" min="1" step="1"></label><label>Y 列<input data-key="y_column" type="number" min="1" step="1"></label></div><p id="column-hint" class="hint">列号从 1 开始</p>
+    <button id="plot-button" class="primary full">绘图 / 应用设置</button>
+    <div class="watch-row"><button id="live-folder">连接实时文件夹</button><label><input type="checkbox" data-key="watch_files">自动重读</label></div><p id="watch-hint" class="hint">普通导入为文件快照；支持的浏览器可连接文件夹后自动重读。</p>
+    <details id="import-records" hidden><summary>导入记录</summary><ul id="import-log"></ul></details>
+  </aside>
+  <section class="canvas-panel panel" aria-label="交互绘图">
+    <div class="canvas-head"><div><h2>交互图窗</h2><p id="curve-count">等待导入数据</p></div><button id="toggle-settings" aria-expanded="true">作图设置</button></div>
+    <div class="plot-actions"><button id="apply-settings" class="primary">应用设置</button><button id="copy-png">复制 PNG</button><button id="copy-svg">复制 SVG</button><button id="copy-data">复制数据</button><button id="auto-view">Autoscale</button></div>
+    <div class="plot-shell"><div id="plot"></div><div id="plot-empty"><span>∿</span><strong>从一条曲线开始</strong><p>选择文件夹，或将数据文件直接拖入页面</p></div></div>
+    <div id="analysis" class="analysis" aria-label="最大值分析"></div>
+    <div class="export-row"><label>数据复制对象<select id="output-curve" aria-label="数据复制对象"><option value="">先绘制曲线</option></select></label><span>仅复制当前 X / Y 可见范围内的处理后数据</span></div>
+    <p id="status" class="status" role="status" aria-live="polite">文件仅在本机浏览器处理，不上传。缩放图窗不会回写作图设置。</p>
+  </section>
+  <aside class="inspector panel" id="inspector" aria-label="作图设置">
+    <div class="panel-title"><h2>作图设置</h2><span>即时更新</span></div>
+    <div class="tabs" role="tablist" aria-label="设置分类"><button role="tab" aria-selected="true" data-tab="axes">坐标</button><button role="tab" aria-selected="false" data-tab="processing">数据处理</button><button role="tab" aria-selected="false" data-tab="style">图形属性</button></div>
+    <div id="axes" class="tab-content" role="tabpanel"><div id="axis-form" class="form"></div><button id="apply-range" class="full primary">应用坐标设置</button><p class="hint">平移、缩放、Autoscale 只改变画面，不修改这里的范围。点击应用设置可恢复指定范围。</p><button id="preset-1310" class="full">1310 预设：1270–1350 nm / −55–−5 dB</button></div>
+    <div id="processing" class="tab-content" role="tabpanel" hidden><div id="processing-form" class="form"></div><div class="formula">缩放 → 校准扣除 → Y 补偿 → smooth</div><h3>曲线运算</h3><label class="field">曲线 A<select id="curve-a"></select></label><label class="field">曲线 B<select id="curve-b"></select></label><label class="field">运算<select id="math-operation"><option value="difference">A − B</option><option value="half-sum">A / 2 + B / 2（GC 等效）</option></select></label><button id="combine-curves" class="primary full">计算并作图</button><button id="clear-derived" class="full">清除派生曲线</button><p class="hint">相减与合成仅使用重叠 X 区间，B 线性插值到 A。按照原版，启用 smooth 时派生曲线会再平滑一次。</p></div>
+    <div id="style" class="tab-content" role="tabpanel" hidden><div id="style-form" class="form"></div><button id="edit-legends" class="full">编辑图例名称</button><p class="hint">标题、坐标标签、图例和图下分析文字可拖动。样式设置自动保存在本机浏览器。</p></div>
+  </aside>
+</main>
+<footer><a href="https://github.com/Jerry-behappy/PlotGUI" target="_blank" rel="noreferrer">PlotGUI</a> · MATLAB / Python / Web　<span>数据保留在当前页面内存；刷新后需要重新导入。</span></footer>
+<dialog id="preview-dialog"><div class="dialog-head"><h2 id="preview-title">原始数据</h2><button data-close="preview-dialog">关闭</button></div><p id="preview-note" class="hint"></p><div id="preview-table" class="table-wrap"></div></dialog>
+<dialog id="legend-dialog"><div class="dialog-head"><h2>编辑图例</h2><button data-close="legend-dialog">关闭</button></div><div id="legend-fields"></div><button id="save-legends" class="primary full">应用图例</button></dialog>
+<script src="vendor/plotly.min.js"></script><script src="plot_core.js"></script><script src="clipboard.js"></script><script src="app.js"></script>
+</body></html>
